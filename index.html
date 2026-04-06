@@ -8,162 +8,110 @@
     /* Apple-like clean interface */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #f5f5f7;
-      color: #1d1d1f;
       margin: 0;
       padding: 0;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
     }
     header {
       background-color: #fff;
       padding: 20px 40px;
       box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
       font-size: 24px;
       font-weight: 600;
+      margin: 0;
     }
-    main {
-      max-width: 800px;
-      margin: 40px auto;
-      background-color: #fff;
+    header nav button {
+      margin-left: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      color: white;
+      font-size: 14px;
+    }
+    .btn-primary { background-color: #0071e3; }
+    .btn-secondary { background-color: #ff9500; }
+    .btn-primary:hover { background-color: #005bb5; }
+    .btn-secondary:hover { background-color: #cc7a00; }
+
+    section {
+      max-width: 900px;
+      margin: 50px auto;
       padding: 40px;
+      background: #fff;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
+    h2 { margin-top: 0; }
     input, select {
       width: 100%;
       padding: 12px 16px;
-      margin: 10px 0;
+      margin: 8px 0;
       border: 1px solid #d1d1d6;
       border-radius: 10px;
       font-size: 16px;
     }
-    button {
-      background-color: #0071e3;
-      color: #fff;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
+    button.add-expense {
+      background-color: #34c759;
+      margin-top: 10px;
+      width: auto;
     }
-    button:hover {
-      background-color: #005bb5;
-    }
-    h2 {
-      margin-top: 30px;
-    }
-    .result {
+    button.add-expense:hover { background-color: #28a745; }
+    .result, .suggestion {
       background-color: #f0f0f5;
       padding: 20px;
       border-radius: 12px;
       margin-top: 20px;
     }
-    .goal {
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #e5f7ff;
-      border-radius: 10px;
+    .goal-bar {
+      background-color: #e0e0e0;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 10px;
     }
+    .goal-bar-inner {
+      height: 20px;
+      background-color: #0071e3;
+      width: 0%;
+      text-align: center;
+      color: white;
+      line-height: 20px;
+      font-size: 12px;
+    }
+    .car-bar-inner {
+      height: 20px;
+      background-color: #ff9500;
+      width: 0%;
+      text-align: center;
+      color: white;
+      line-height: 20px;
+      font-size: 12px;
+    }
+    .expense-item { margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <header>Future Finance Planner</header>
-  <main>
-    <h2>Enter Your Information</h2>
-    <label>Age:</label>
-    <input type="number" id="age" placeholder="Your age">
-    
-    <label>State:</label>
-    <input type="text" id="state" placeholder="Your state">
-    
-    <label>City:</label>
-    <input type="text" id="city" placeholder="Your city">
-    
-    <label>Monthly Income ($):</label>
-    <input type="number" id="income" placeholder="Income">
-    
-    <label>Roth IRA Contribution ($):</label>
-    <input type="number" id="roth" placeholder="Roth IRA monthly">
-    
-    <label>401k Contribution ($):</label>
-    <input type="number" id="k401" placeholder="401k monthly">
-    
-    <h2>Expenses</h2>
-    <label>Car Payment ($):</label>
-    <input type="number" id="car" placeholder="Car Payment">
-    
-    <label>Insurance ($):</label>
-    <input type="number" id="insurance" placeholder="Insurance">
-    
-    <label>Gas ($):</label>
-    <input type="number" id="gas" placeholder="Gas">
-    
-    <label>Groceries ($):</label>
-    <input type="number" id="groceries" placeholder="Groceries">
-    
-    <label>Other Expenses ($):</label>
-    <input type="number" id="other" placeholder="Other expenses">
-    
-    <h2>Goals</h2>
-    <label>Custom Goal Name:</label>
-    <input type="text" id="goalName" placeholder="e.g. Emergency Fund">
-    
-    <label>Goal Amount ($):</label>
-    <input type="number" id="goalAmount" placeholder="Amount to save">
-    
-    <button onclick="calculateFinance()">Calculate Financial Health</button>
-    
-    <div class="result" id="results">
-      <!-- Results will appear here -->
-    </div>
-  </main>
 
-  <script>
-    function calculateFinance() {
-      const age = Number(document.getElementById('age').value);
-      const income = Number(document.getElementById('income').value);
-      const roth = Number(document.getElementById('roth').value);
-      const k401 = Number(document.getElementById('k401').value);
-      const car = Number(document.getElementById('car').value);
-      const insurance = Number(document.getElementById('insurance').value);
-      const gas = Number(document.getElementById('gas').value);
-      const groceries = Number(document.getElementById('groceries').value);
-      const other = Number(document.getElementById('other').value);
-      const goalName = document.getElementById('goalName').value;
-      const goalAmount = Number(document.getElementById('goalAmount').value);
+<header>
+  <h1>Future Finance Planner</h1>
+  <nav>
+    <button class="btn-primary" onclick="scrollToSection('planner')">Planner</button>
+    <button class="btn-secondary" onclick="scrollToSection('goals')">Goals</button>
+  </nav>
+</header>
 
-      const totalExpenses = car + insurance + gas + groceries + other + roth + k401;
-      const savingsPotential = income - totalExpenses;
+<section id="landing">
+  <h2>Welcome to Future Finance Planner</h2>
+  <p>Plan your finances like Apple designs your technology: clean, intuitive, and smart. Budget, save, and track your goals with ease.</p>
+  <button class="btn-primary" onclick="scrollToSection('planner')">Get Started</button>
+</section>
 
-      let healthMessage = "";
-      if (savingsPotential > income * 0.2) {
-        healthMessage = "Excellent! You are saving well.";
-      } else if (savingsPotential > income * 0.1) {
-        healthMessage = "Good. There is room to save more.";
-      } else {
-        healthMessage = "Warning: You may be overspending!";
-      }
-
-      let goalMessage = "";
-      if (goalAmount && savingsPotential > 0) {
-        const monthsToGoal = Math.ceil(goalAmount / savingsPotential);
-        goalMessage = `It will take approximately ${monthsToGoal} months to reach your goal "${goalName}".`;
-      }
-
-      const carMessage = car > 0 ? `If you keep paying $${car} monthly, your car will be paid off in the standard term.` : "No car loan entered.";
-
-      document.getElementById('results').innerHTML = `
-        <h3>Financial Health</h3>
-        <p>${healthMessage}</p>
-        <h3>Savings Potential</h3>
-        <p>You can save $${savingsPotential} per month.</p>
-        <h3>Goal Progress</h3>
-        <p>${goalMessage}</p>
-        <h3>Car Payment Status</h3>
-        <p>${carMessage}</p>
-      `;
-    }
-  </script>
-</body>
-</html>
+<section id="planner">
+  <h2>Financial Inputs</h2
